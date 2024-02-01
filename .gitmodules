@@ -1,0 +1,3 @@
+[submodule "Estore.Core"]
+	path = Submodule
+	url = https://github.com/revoljucioner/access-manager-core
