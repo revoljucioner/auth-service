@@ -50,9 +50,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Submodule\AccessManager.Core\AccessManager.Core.csproj" />
-    <ProjectReference Include="..\Submodule\AccessManager.Models\AccessManager.Models.csproj" />
-    <ProjectReference Include="..\Submodule\AccessManager.Sso\AccessManager.Sso.csproj" />
+    <ProjectReference Include="..\access-manager-core\AccessManager.Core\AccessManager.Core.csproj" />
+    <ProjectReference Include="..\access-manager-core\AccessManager.Models\AccessManager.Models.csproj" />
+    <ProjectReference Include="..\access-manager-core\AccessManager.Sso\AccessManager.Sso.csproj" />
   </ItemGroup>
 
 </Project>
