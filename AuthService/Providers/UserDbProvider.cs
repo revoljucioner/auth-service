@@ -37,6 +37,7 @@ namespace AuthService.Providers
         {
             var newDbUser = new UserDbModel
             {
+                Id = newUser.Id,
                 Email = newUser.Email,
                 Password = newUser.Password,
                 Role = newUser.Role
