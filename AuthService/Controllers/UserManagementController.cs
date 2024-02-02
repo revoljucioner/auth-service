@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Threading.Tasks;
 
@@ -61,7 +62,7 @@ namespace AuthService.Controllers
 
                 _logger.LogInformation($"Succesfuly get user info for user '{userId}'");
 
-                return StatusCode(StatusCodes.Status200OK);
+                return Ok(result);
             }
             catch (ArgumentOutOfRangeException e)
             {
@@ -87,7 +88,7 @@ namespace AuthService.Controllers
 
                 _logger.LogInformation($"Succesfuly get user info for user '{userId}'");
 
-                return StatusCode(StatusCodes.Status200OK);
+                return Ok(result);
             }
             catch (ArgumentOutOfRangeException e)
             {
