@@ -15,7 +15,7 @@ namespace AuthService.Providers
 
         public UserDbProvider(IConfiguration configuration)
         {
-            _dbContextFunc = new Func<DataContext>(() => new DataContext(Environment.GetEnvironmentVariable("ConnectionStrings:UserDatabase") ?? configuration["ConnectionStrings:UserDatabase"]));
+            _dbContextFunc = new Func<DataContext>(() => new DataContext(configuration["ConnectionStrings:UserDatabase"]));
         }
 
         public async Task SetRole(Guid userId, UserRole newRole)
