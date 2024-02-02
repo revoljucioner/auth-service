@@ -55,7 +55,7 @@ namespace AuthService.Providers
             {
                 userModel = await _userCacheProvider.Get(request.Email);
             }
-            catch (KeyNotFoundException ex)
+            catch (InvalidOperationException ex)
             {
                 if (_userDbProvider.IsUniqueEmail(request.Email))
                     throw new UnauthorizedAccessException();
@@ -82,7 +82,7 @@ namespace AuthService.Providers
             {
                 userModel = await _userCacheProvider.Get(userId);
             }
-            catch (KeyNotFoundException ex)
+            catch (InvalidOperationException ex)
             {
                 userModel = await _userDbProvider.Get(userId);
 
@@ -104,7 +104,7 @@ namespace AuthService.Providers
             {
                 await _userCacheProvider.SetRole(userId, newRole);
             }
-            catch (KeyNotFoundException e)
+            catch (InvalidOperationException e)
             {
                 var userDb = await _userDbProvider.Get(userId);
 
