@@ -82,7 +82,7 @@ namespace AuthService.Providers
             {
                 userModel = await _userCacheProvider.Get(userId);
             }
-            catch (InvalidOperationException ex)
+            catch (KeyNotFoundException ex)
             {
                 userModel = await _userDbProvider.Get(userId);
 

@@ -1,5 +1,6 @@
 ﻿using AccessManager.Models.Enum;
 using AccessManager.Sso.Attributes;
+using AccessManager.Sso.Attributes.FromClaimAttribute;
 using AuthService.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -45,6 +46,58 @@ namespace AuthService.Controllers
             catch (Exception e)
             {
                 _logger.LogError($"Error during updating role for user '{userId}': '{e.Message}'");
+
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+
+        [HttpGet("UserInfo")]
+        [AuthorizeCustom(UserRole.Admin)]
+        public async Task<IActionResult> GetUserInfo([BindRequired] Guid userId)
+        {
+            try
+            {
+                var result = await _managerProvider.GetUserInfo(userId);
+
+                _logger.LogInformation($"Succesfuly get user info for user '{userId}'");
+
+                return StatusCode(StatusCodes.Status200OK);
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                _logger.LogError($"Cannot find user '{userId}'");
+
+                return StatusCode(StatusCodes.Status404NotFound, e.Message);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Error during getting info for user '{userId}': '{e.Message}'");
+
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+
+        [HttpGet("MyUserInfo")]
+        [AuthorizeCustom(UserRole.Staff, UserRole.Admin)]
+        public async Task<IActionResult> GetMyUserInfo([FromClaim("Id")] Guid userId)
+        {
+            try
+            {
+                var result = await _managerProvider.GetUserInfo(userId);
+
+                _logger.LogInformation($"Succesfuly get user info for user '{userId}'");
+
+                return StatusCode(StatusCodes.Status200OK);
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                _logger.LogError($"Cannot find user '{userId}'");
+
+                return StatusCode(StatusCodes.Status404NotFound, e.Message);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Error during getting info for user '{userId}': '{e.Message}'");
 
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
